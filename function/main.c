@@ -40,7 +40,7 @@ void main()
     {
         printf("Book manage system: 1) List 2)Price 3)Exit\n");
         scanf("%s", &input);
-        fseek(stdin,0,SEEK_END);
+        fseek(stdin, 0, SEEK_END);
 
         option = transfer_input(input);
 
@@ -133,7 +133,7 @@ void price_finder(Book* books)
     printf("Enter the book's name(100 character limited): ");
     // in buffer overflow attack danger
     scanf("%s", &name);
-    fseek(stdin,0,SEEK_END);
+    fseek(stdin, 0, SEEK_END);
 
     for (int i = 0; i < BOOK_TYPES; ++i)
     {
