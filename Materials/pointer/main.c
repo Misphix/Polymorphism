@@ -11,6 +11,11 @@ typedef enum {
     Magazine
 } book_type;
 
+typedef enum {
+    Info,
+    Price
+} function;
+
 typedef struct Book
 {
     char *name;
@@ -24,12 +29,19 @@ void print_all_books_info(Book *);
 void print_comic_info(Book *);
 void print_novel_info(Book *);
 void print_magazine_info(Book *);
-void (*print_info[BOOK_TYPES])(Book *) = {print_comic_info, print_novel_info, print_magazine_info};
+
 void price_finder(Book *);
 void print_comic_price(Book *);
 void print_novel_price(Book *);
 void print_magazine_price(Book *);
-void (*print_price[BOOK_TYPES])(Book *) = {print_comic_price, print_novel_price, print_magazine_price};
+
+typedef void (*BOOK_POINTER)(Book*);
+BOOK_POINTER book_fucntion[3][2] = 
+{
+    {print_comic_info, print_comic_price},
+    {print_novel_info, print_novel_price},
+    {print_magazine_info, print_magazine_price}
+};
 
 void main()
 {
@@ -98,7 +110,7 @@ void print_all_books_info(Book *books)
     for (int i = 0; i < BOOK_TYPES; ++i)
     {
         Book *current_book = books + i;
-        print_info[current_book->type](current_book);
+        book_fucntion[current_book->type][Info](current_book);
     }
 }
 
@@ -131,7 +143,7 @@ void price_finder(Book *books)
         int compare = strncmp(current_book->name, name, strlen(name));
         if (compare == 0)
         {
-            print_price[current_book->type](current_book);
+            book_fucntion[current_book->type][Price](current_book);
             return;
         }
     }
