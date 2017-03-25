@@ -12,7 +12,7 @@ typedef enum
 
 typedef struct Music
 {
-    char* const name;
+    const char* name;
     unsigned int duration;
     music_type type;
 } Music;
@@ -33,7 +33,7 @@ int main()
         char input[25] = {};
         int option = 0;
         printf("Music manage system: 1) List 2)Exit\n");
-        scanf("%24s", &input);
+        scanf("%24s", input);
         fseek(stdin, 0, SEEK_END);
 
         option = transfer_input(input);
