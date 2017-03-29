@@ -12,7 +12,7 @@ typedef enum
 
 typedef struct Music
 {
-    char* name;
+    const char* name;
     unsigned int duration;
     music_type type;
 } Music;
@@ -24,16 +24,16 @@ void print_blue_info(Music*);
 void print_jazz_info(Music*);
 void print_rock_info(Music*);
 
-void main()
+int main()
 {
     Music* music = initialize_music();
-    char input[25];
-    int option;
 
     while (1)
     {
+        char input[25] = {};
+        int option = 0;
         printf("Music manage system: 1) List 2)Exit\n");
-        scanf("%s", &input);
+        scanf("%24s", input);
         fseek(stdin, 0, SEEK_END);
 
         option = transfer_input(input);
@@ -44,11 +44,13 @@ void main()
                 print_all_music_info(music);
                 break;
             case 2:
-                return;
+                return 0;
             default:
                 printf("Invalid input\n");
         }
     }
+    
+    return 0;
 }
 
 Music* initialize_music()
@@ -96,6 +98,9 @@ void print_all_music_info(Music* music)
                 break;
             case Rock:
                 print_rock_info(current_music);
+                break;
+            default:
+                fprintf(stderr, "Unknown music type\n");
                 break;
         }
     }
